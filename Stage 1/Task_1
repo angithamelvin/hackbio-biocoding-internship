@@ -1,0 +1,51 @@
+# translate a DNA to protein
+aminoacids = {
+    'ATG': 'M', 'GTG': 'V', 'AGG': 'R','AGT': 'S',
+}
+def proteinbuilding(seq):
+    codons = [seq[i:i+3] for i in range(0, len(seq), 3)]
+    protein = []
+    for codon in codons:
+        if codon in aminoacids:
+            amino_acid = aminoacids[codon]
+            if amino_acid == 'Stop':
+                break
+            protein.append(amino_acid)
+    return ''.join(protein)
+seq = "ATGGTGAGGAGGAGTAA"
+protein_sequence = proteinbuilding(seq)
+print("Protein Sequence:", protein_sequence)
+
+# a function that simulates and generates random growth curves representing different stages of a logistic population growth curve
+import math
+import seaborn as sns
+def growth_curve(x, k = 2, x_mid = 5):
+    a = 1 / (1 + math.exp(-k * (x - x_mid)))
+    return a
+population = []
+for i in range(0, 24):
+    population.append(growth_curve(x = i, k = 0.5, x_mid = 10))
+print(population)
+sns.lineplot(x = range(0, 24), y = population)
+
+#a function for determining the time to reach 80% of the maximum growth; usually the carrying capacity
+import math
+def time_80_percent(k, x_mid):
+    t_80 = x_mid + math.log(0.25) / -k
+    return t_80
+k = 0.5  
+x_mid = 10  
+t_80 = time_80_percent(k, x_mid)
+print(f"Time to reach 80% of the carrying capacity: {t_80:.2f} units of time")
+
+#function to find the hamming distance between two strings
+def hamming_distance(name1, name2):
+    max_length = max(len(name1), len(name2))
+    name1 = name1.ljust(max_length, "_")  
+    name2 = name2.ljust(max_length, "_")  
+    distance = sum(1 for a, b in zip(name1, name2) if a != b)
+    return distance
+slack_username = "angitha"
+twitter_handle = "angitha_melvin"
+distance = hamming_distance(slack_username, twitter_handle)
+print(f"Hamming distance between Slack username and Twitter/X handle: {distance}")
